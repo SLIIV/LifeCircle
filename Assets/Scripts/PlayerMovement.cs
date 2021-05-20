@@ -11,9 +11,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Transform playerCamera;
 
+    [SerializeField]
+    private AudioSource steps;
+
     private CharacterController controller;
 
     private Transform playerTransform;
+
+
 
     void Start()
     {
@@ -26,8 +31,17 @@ public class PlayerMovement : MonoBehaviour
     {
         float forwardMovement = Input.GetAxisRaw("Vertical");
         float rightMovement = Input.GetAxisRaw("Horizontal");
-        Vector3 newForwardVector = new Vector3(playerCamera.forward.x, 0, playerCamera.forward.z) * forwardMovement;
-        Vector3 newRightVector = new Vector3(playerCamera.right.x, 0, playerCamera.right.z) * rightMovement;
-        controller.Move((newForwardVector + newRightVector).normalized * speed * Time.deltaTime);
+        if(forwardMovement != 0 || rightMovement != 0)
+        {
+            Vector3 newForwardVector = new Vector3(playerCamera.forward.x, 0, playerCamera.forward.z) * forwardMovement;
+            Vector3 newRightVector = new Vector3(playerCamera.right.x, 0, playerCamera.right.z) * rightMovement;
+            controller.Move((newForwardVector + newRightVector).normalized * speed * Time.deltaTime);
+            if(!steps.isPlaying)
+                steps.Play();
+        }
+        else
+        {
+            steps.Stop();
+        }
     }
 }

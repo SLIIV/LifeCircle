@@ -15,11 +15,19 @@ public class Camera : MonoBehaviour
     void Start() 
     {
         camera = transform;
+        sensivity = SettingsMenu.GetSensivitySettings();
+    }
+
+    public void UpdateCameraSettings()
+    {
+        sensivity = SettingsMenu.GetSensivitySettings();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(CameraSettings.isPause)
+            return;
         mouseXDir += Input.GetAxis("Mouse X") * sensivity;
         mouseYDir += Input.GetAxis("Mouse Y") * sensivity;
         mouseYDir = Mathf.Clamp(mouseYDir, -90, 90);
