@@ -33,20 +33,6 @@ public class AudioManager : MonoBehaviour
         ImagesManager.OnNextStage.AddListener(() => NextStage());
     }
 
-    private void Update() 
-    {
-        if(sound != null)
-        {
-            if(!sound.isPlaying)
-            {
-                NextSound(currentStage);
-            }
-        }
-        if(!music.isPlaying)
-        {
-            //NextMusic(currentStage);
-        }
-    }
 
     public  void UpdateAudioSettings()
     {
@@ -98,7 +84,7 @@ public class AudioManager : MonoBehaviour
     private void NextStage()
     {
         currentStage++;
-        PlayMusicOnStage(currentStage);
+       //PlayMusicOnStage(currentStage);
         PlaySoundOnStage(currentStage);
     }
     private IEnumerator FadeIn(AudioSource source)
